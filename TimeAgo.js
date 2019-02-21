@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from "react";
 import { View, Text } from "react-native";
-import moment from "moment";
+import moment from "moment/min/moment-with-locales";
 
 export default class TimeAgo extends Component {
   props: {
@@ -21,20 +21,17 @@ export default class TimeAgo extends Component {
   }
 
   createTimer = () => {
-    this.setState({
-      timer: setTimeout(() => {
-        this.update();
-      }, this.props.interval)
-    });
+    this.timer = setInterval(() => {
+      this.update();
+    }, this.props.interval);
   };
 
   componentWillUnmount() {
-    clearTimeout(this.state.timer);
+    clearTimeout(this.timer);
   }
 
   update = () => {
     this.forceUpdate();
-    this.createTimer();
   };
 
   render() {
